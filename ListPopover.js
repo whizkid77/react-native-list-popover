@@ -17,6 +17,7 @@ import {
 } from 'react-native';
 
 var SCREEN_HEIGHT = Dimensions.get('window').height;
+var SCREEN_WIDTH = Dimensions.get('window').width;
 var noop = () => {};
 var ds = new ListView.DataSource({rowHasChanged: (r1,r2)=>(r1!==r2)});
 
@@ -93,12 +94,10 @@ var ListPopover = React.createClass({
 
     if (this.props.isVisible) {
       return (
-        <TouchableOpacity onPress={this.props.onClose}>
-          <View style={containerStyle}>
+        <TouchableOpacity onPress={this.props.onClose} style={containerStyle}>
             <View style={popoverStyle}>
               {this.renderList()}
             </View>
-          </View>
         </TouchableOpacity>
       );
     } else {
@@ -116,12 +115,11 @@ var DefaultStyles = StyleSheet.create({
     right: 0,
     position: 'absolute',
     justifyContent: 'center',
-    backgroundColor: 'transparent',
+    alignItems: 'center',
   },
   popover: {
-    margin: 10,
+    width:Math.min(SCREEN_WIDTH-60,260),
     borderRadius: 3,
-    padding: 3,
     backgroundColor: '#ffffff',
   },
   rowText: {
@@ -129,8 +127,6 @@ var DefaultStyles = StyleSheet.create({
   },
   separator: {
     height: 0.5,
-    marginLeft: 8,
-    marginRight: 8,
     backgroundColor: '#CCC',
   },
 });
